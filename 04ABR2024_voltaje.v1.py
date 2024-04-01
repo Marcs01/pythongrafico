@@ -1,23 +1,16 @@
 import smbus
 import time
 
-# Asumiendo que el PCF8591 está en la dirección 0x48
 address = 0x48
-bus = smbus.SMBus(1)  # Usando I2C bus 1
+A0 = 0x40
+A1 = 0x41
+A2 = 0x42
+A3 = 0x43
+bus = smbus.SMBus(1)
 
-
-# Función para leer datos del ADC
-def read_adc(channel):
-    if channel in [0, 1, 2, 3]:
-        bus.write_byte(address, 0x40 + channel)
-        bus.read_byte(address)  # dummy read para iniciar la conversión
-        return bus.read_byte(address)
-    else:
-        return None
-
-
-# Lee el valor del canal al que está conectada la batería
 while True:
-    voltage = read_adc(0)  # Asumiendo que la batería está conectada al canal 0
-    print("Voltaje leído:", voltage)
-    time.sleep(1)
+    bus.read_byte_data(address, A1)  # do the measurement but ignore the value
+    value = bus.read_byte_data(address, A1)  # get the correct value
+    # print(value)
+    print("AOUT: %1.03f" % (value * 3.3 / 255))
+    time.sleep(0.2)
