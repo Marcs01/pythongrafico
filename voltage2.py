@@ -40,14 +40,15 @@ def write(val):
 if __name__ == "__main__":
     setup(0x48)
     while True:
-        #voltage0 = read(0)
-        #print ('AIN0 = ', voltage0, 'V')
-        voltage1 = read(1)
-        voltage1 = '{:.3f}'.format(voltage1)
-        print ('Voltage = ', voltage1 , 'V')
+        voltage0 = read(0)
+        voltage0 = '{:.9f}'.format(voltage0)
+        print ('AIN0 = ', voltage0, 'V')
+        #voltage1 = read(1)
+        #voltage1 = '{:.3f}'.format(voltage1)
+        #print ('Voltage = ', voltage1 , 'V')
         
         # No es necesario ajustar el valor para la escritura de LED aquí,
         # a menos que estés controlando un LED con este script y quieras
         # mantener esa funcionalidad.
         
-        time.sleep(0.3)
+        time.sleep(0.2)
