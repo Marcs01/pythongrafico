@@ -72,6 +72,7 @@ if __name__ == "__main__":
             tmp = read(0)
 
             if tmp > 3.106:
+                # tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
                 print("Es mayor a dos")
                 while tolerancia > 0:
                     voltage1 = read(0)
@@ -84,7 +85,7 @@ if __name__ == "__main__":
 
                     time.sleep(1)
 
-                nombre_archivo = datetime.now().strftime("%Y-%m-%d") + "_datos.csv"
+                nombre_archivo = datetime.now().strftime("%d-%b-%Y") + "_datos.csv"
                 file_exists = os.path.exists(nombre_archivo)
 
                 with open(nombre_archivo, mode="ab") as archivo:
@@ -93,7 +94,14 @@ if __name__ == "__main__":
 
                     if not file_exists:
 
-                        writer.writerow(["durancion", "hora"])
+                        writer.writerow(
+                            [
+                                "bird_duration",
+                                #   "hora"
+                            ]
+                        )
 
-                    data = [contador, datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
+                    data = [
+                        contador - 4,  # tiempo_campo
+                    ]
                     writer.writerow(data)
