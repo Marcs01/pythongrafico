@@ -63,12 +63,12 @@ if __name__ == "__main__":
         print(voltage1)
         time.sleep(0.5)
 
-        if voltage1 > 0.2:
+        if voltage1 > 3.105:
 
             time.sleep(0.5)
             tmp = read(0)
 
-            if tmp > 0.2:
+            if tmp > 3.105:
 
                 print("Es mayor a dos")
 
@@ -77,9 +77,9 @@ if __name__ == "__main__":
                     voltage1 = read(0)
                     contador += 1
 
-                    if voltage1 < 0.1:
+                    if voltage1 < 3.105:
                         tolerancia -= 1
-                    elif voltage1 >= 0.2:
+                    elif voltage1 >= 3.105:
                         tolerancia = 5
 
                     print(tolerancia)
