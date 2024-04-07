@@ -89,7 +89,9 @@ if __name__ == "__main__":
 
                     time.sleep(1)
 
-                nombre_archivo = datetime.now().strftime("%d-%b-%Y") + "_datos.csv"
+                nombre_archivo = (
+                    "logs/" + datetime.now().strftime("%d-%b-%Y") + "_data.csv"
+                )
                 file_exists = os.path.exists(nombre_archivo)
 
                 with open(nombre_archivo, mode="ab") as archivo:
