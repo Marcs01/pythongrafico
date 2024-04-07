@@ -66,12 +66,12 @@ if __name__ == "__main__":
         print(voltage1)
         time.sleep(0.5)
 
-        if voltage1 > 3.106:
+        if voltage1 > 3.2:
 
             time.sleep(0.5)
             tmp = read(0)
 
-            if tmp > 3.106:
+            if tmp > 3.2:
                 # tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
                 print("Es mayor a dos")
                 while tolerancia > 0:
@@ -81,9 +81,9 @@ if __name__ == "__main__":
 
                     print(voltage1)
 
-                    if voltage1 < 3.106:
+                    if voltage1 < 3.2:
                         tolerancia -= 1
-                    elif voltage1 >= 3.106:
+                    elif voltage1 >= 3.2:
                         tolerancia = 5
                     print(tolerancia)
 
