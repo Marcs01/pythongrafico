@@ -76,11 +76,12 @@ if __name__ == "__main__":
                 while tolerancia > 0:
                     voltage1 = read(0)
                     contador += 1
-                    if voltage1 < 0.1:
+                    if voltage1 < 3.106:
                         tolerancia -= 1
-                    elif voltage1 >= 0.2:
+                    elif voltage1 >= 3.106:
                         tolerancia = 5
                     print(tolerancia)
+
                     time.sleep(1)
 
                 nombre_archivo = datetime.now().strftime("%Y-%m-%d") + "_datos.csv"
