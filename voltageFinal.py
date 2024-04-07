@@ -34,6 +34,7 @@ def read(chn):
 
     value = bus.read_byte(address)
     voltage = (value / 255.0) * 3.3
+
     return voltage
 
 
@@ -52,7 +53,9 @@ def write(val):
 
 
 if __name__ == "__main__":
+
     setup(0x48)
+
     while True:
 
         tolerancia = 5
@@ -67,41 +70,29 @@ if __name__ == "__main__":
 
             time.sleep(0.5)
             tmp = read(0)
-            print(tmp)
 
             if tmp > 3.106:
-
-                print("Es mayor a dos", tmp)
-
+                print("Es mayor a dos")
                 while tolerancia > 0:
-
                     voltage1 = read(0)
-                    print(voltage1)
                     contador += 1
-
-                    if voltage1 < 3.106:
+                    if voltage1 < 0.1:
                         tolerancia -= 1
-                    elif voltage1 >= 3.106:
+                    elif voltage1 >= 0.2:
                         tolerancia = 5
-
                     print(tolerancia)
                     time.sleep(1)
 
-                nombre_archivo = datetime.now().strftime("%d-%b-%Y") + "_datos.csv"
+                nombre_archivo = datetime.now().strftime("%Y-%m-%d") + "_datos.csv"
                 file_exists = os.path.exists(nombre_archivo)
 
-                with open(nombre_archivo, mode="a", newline="") as archivo:
+                with open(nombre_archivo, mode="ab") as archivo:
 
-                    fieldnames = ["durancion", "hora"]
-                    writer = csv.DictWriter(archivo, fieldnames=fieldnames)
+                    writer = csv.writer(archivo)
 
                     if not file_exists:
 
-                        writer.writeheader()
+                        writer.writerow(["durancion", "hora"])
 
-                    data = {
-                        "durancion": contador,
-                        "hora": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    }
-
+                    data = [contador, datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
                     writer.writerow(data)
