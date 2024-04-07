@@ -75,8 +75,12 @@ if __name__ == "__main__":
                 # tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
                 print("Es mayor a dos")
                 while tolerancia > 0:
+
                     voltage1 = read(0)
                     contador += 1
+
+                    print(voltage1)
+
                     if voltage1 < 3.106:
                         tolerancia -= 1
                     elif voltage1 >= 3.106:
