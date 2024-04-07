@@ -67,14 +67,16 @@ if __name__ == "__main__":
 
             time.sleep(0.5)
             tmp = read(0)
+            print(tmp)
 
             if tmp > 3.106:
 
-                print("Es mayor a dos")
+                print("Es mayor a dos", tmp)
 
                 while tolerancia > 0:
 
                     voltage1 = read(0)
+                    print(voltage1)
                     contador += 1
 
                     if voltage1 < 3.106:
