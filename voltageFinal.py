@@ -9,7 +9,10 @@ bus = smbus.SMBus(1)
 
 def eliminar_y_escribir(nombre_archivo, datos, fila_nueva):
     """Elimina la última fila si es necesario y escribe los datos modificados de vuelta al archivo."""
-    with open(nombre_archivo, "w", newline="") as archivo:
+    with open(
+        nombre_archivo,
+        "w",
+    ) as archivo:
         writer = csv.writer(archivo)
         if not datos:
             writer.writerow(
@@ -80,6 +83,9 @@ if __name__ == "__main__":
         file_exists = os.path.exists(nombre_archivo)
         value = 1
 
+        if voltage0 > 3.2:
+            value = 2
+
         datos_modificados = []
         if file_exists:
             # Leer y almacenar todos los datos
@@ -91,10 +97,6 @@ if __name__ == "__main__":
                 # La condición para modificar/eliminar la última fila va aquí.
                 # En este caso, simplemente eliminamos la última fila.
                 datos_modificados.pop()
-
-        # Si el voltaje es mayor a 3.2, cambiamos el valor.
-        if voltage0 > 3.2:
-            value = 2
 
         # La nueva fila a añadir
         fila_nueva = [tiempo_campo, value]
