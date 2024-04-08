@@ -77,7 +77,7 @@ if __name__ == "__main__":
             tmp = read(0)
 
             if tmp > 3.2:
-                tiempo_campo2 = datetime.now().strftime("%Y%m%d%H%M%S")
+                tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
                 value = 2
 
             print(value)
