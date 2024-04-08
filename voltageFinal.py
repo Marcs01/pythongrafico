@@ -81,11 +81,13 @@ if __name__ == "__main__":
             print(value)
 
             with open(nombre_archivo, "r") as archivo:
-                for ultima_fila in csv.reader(archivo):
-                    # necesito obtener la ultima fila
-                    pass
-            if ultima_fila:
-                print(ultima_fila)
+                if file_exists:
+
+                    for ultima_fila in csv.reader(archivo):
+                        # necesito obtener la ultima fila
+                        pass
+                        if ultima_fila:
+                            print(ultima_fila)
 
             with open(nombre_archivo, mode="a") as archivo:
                 writer = csv.writer(archivo)
