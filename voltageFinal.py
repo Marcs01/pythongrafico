@@ -68,8 +68,8 @@ if __name__ == "__main__":
 
         if voltage1 > 3.2:
 
-            tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
-            nombre_archivo = "logs/" + datetime.now().strftime("%d-%b-%Y") + "_data.csv"
+            tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
+            nombre_archivo = "logs/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".csv"
             file_exists = os.path.exists(nombre_archivo)
             value = 1
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
             tmp = read(0)
 
             if tmp > 3.2:
-                tiempo_campo2 = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
+                tiempo_campo2 = datetime.now().strftime("%Y%m%d%H%M%S")
                 value = 2
 
             print(value)
