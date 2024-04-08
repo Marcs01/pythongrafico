@@ -63,17 +63,15 @@ if __name__ == "__main__":
         time.sleep(0.5)
 
         if voltage0 > 3.2:
+            ultima_fila = None  # este el campo de la ultima fila
+
             tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
-            tiempo_campo2 = (
-                tiempo_campo  # Inicializa tiempo_campo2 al mismo valor que tiempo_campo
-            )
+            tiempo_campo2 = tiempo_campo
             nombre_archivo = "logs/" + datetime.now().strftime("%Y%m%d") + ".csv"
             file_exists = os.path.exists(nombre_archivo)
             value = 1
 
-            time.sleep(
-                0.5
-            )  # Ajustado de 0.0 a 0.5 para mantener consistencia y evitar llamadas demasiado rápidas
+            time.sleep(0.5)
             tmp = read(0)
 
             if tmp > 3.2:
@@ -82,8 +80,13 @@ if __name__ == "__main__":
 
             print(value)
 
-            # Esta condición siempre se cumple si tiempo_campo2 fue actualizado,
-            # de lo contrario, usa tiempo_campo
+            with open(nombre_archivo, "r") as archivo:
+                for ultima_fila in csv.reader(archivo):
+                    # necesito obtener la ultima fila
+                    pass
+            if ultima_fila:
+                print(ultima_fila)
+
             with open(nombre_archivo, mode="a") as archivo:
                 writer = csv.writer(archivo)
                 if not file_exists:
