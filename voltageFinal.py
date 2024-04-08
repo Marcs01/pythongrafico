@@ -7,6 +7,21 @@ import os
 bus = smbus.SMBus(1)
 
 
+def eliminar_y_escribir(nombre_archivo, datos, fila_nueva):
+    """Elimina la última fila si es necesario y escribe los datos modificados de vuelta al archivo."""
+    with open(nombre_archivo, "w", newline="") as archivo:
+        writer = csv.writer(archivo)
+        if not datos:
+            writer.writerow(
+                ["bird_duration", "value"]
+            )  # Escribir cabecera si es un archivo nuevo
+        else:
+            writer.writerows(
+                datos
+            )  # Escribir datos existentes (sin la última fila si se modificó)
+        writer.writerow(fila_nueva)  # Escribir la nueva fila
+
+
 def setup(Addr):
 
     global address
@@ -53,11 +68,9 @@ def write(val):
 
 
 if __name__ == "__main__":
-
     setup(0x48)
 
     while True:
-
         voltage0 = read(0)
         print("{:.9f}".format(voltage0))
         time.sleep(0.5)
@@ -67,30 +80,27 @@ if __name__ == "__main__":
         file_exists = os.path.exists(nombre_archivo)
         value = 1
 
+        datos_modificados = []
+        if file_exists:
+            # Leer y almacenar todos los datos
+            with open(nombre_archivo, "r", newline="") as archivo:
+                datos_modificados = list(csv.reader(archivo))
+
+            # Verificar la condición y modificar los datos si es necesario
+            if datos_modificados and datos_modificados[-1][0] == tiempo_campo:
+                # La condición para modificar/eliminar la última fila va aquí.
+                # En este caso, simplemente eliminamos la última fila.
+                datos_modificados.pop()
+
+        # Si el voltaje es mayor a 3.2, cambiamos el valor.
         if voltage0 > 3.2:
-            value = 2  # Suponiendo que quieres cambiar a 2 directamente si el voltaje supera 3.2
+            value = 2
 
-            # Leer la última fila solo si el archivo existe
-            ultima_fila = None
-            if file_exists:
-                with open(nombre_archivo, "r") as archivo:
-                    datos = list(csv.reader(archivo))
-                    if datos:
-                        if datos[-1][0] == tiempo_campo:
-                            writer = csv.writer(archivo)
-                            if not file_exists:
-                                writer.writerow(
-                                    ["bird_duration", "value"]
-                                )  # Escribir cabecera si es nuevo archivo
-                            datos.pop()
-                            writer.writerow(datos)
+        # La nueva fila a añadir
+        fila_nueva = [tiempo_campo, value]
 
-            # Ahora, escribe los datos al archivo
-            with open(nombre_archivo, mode="a", newline="") as archivo:
-                writer = csv.writer(archivo)
-                if not file_exists:
-                    writer.writerow(
-                        ["bird_duration", "value"]
-                    )  # Escribir cabecera si es nuevo archivo
-                data = [tiempo_campo, value]
-                writer.writerow(data)
+        # Escribir los datos modificados de vuelta al archivo (sin la última fila si se eliminó) y añadir la nueva fila
+        eliminar_y_escribir(nombre_archivo, datos_modificados, fila_nueva)
+
+        # Espera antes de la siguiente medición
+        time.sleep(1)
