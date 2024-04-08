@@ -72,7 +72,7 @@ if __name__ == "__main__":
             nombre_archivo = "logs/" + datetime.now().strftime("%d-%b-%Y") + "_data.csv"
             file_exists = os.path.exists(nombre_archivo)
 
-            with open(nombre_archivo, mode="a", newline="") as archivo:
+            with open(nombre_archivo, mode="a") as archivo:
                 writer = csv.writer(archivo)
                 if not file_exists:
                     writer.writerow(["bird_duration", "value"])
@@ -89,7 +89,7 @@ if __name__ == "__main__":
                     "logs/" + datetime.now().strftime("%d-%b-%Y") + "_data.csv"
                 )
 
-                with open(nombre_archivo, mode="a", newline="") as archivo:
+                with open(nombre_archivo, mode="a") as archivo:
                     writer = csv.writer(archivo)
                     data = [tiempo_campo, 2]
                     writer.writerow(data)
