@@ -84,7 +84,7 @@ if __name__ == "__main__":
         file_exists = os.path.exists(nombre_archivo)
 
         if voltage0 > 3.19:
-            tiempo_campo = datetime.now().strftime("%Y%m%d %H%M%S.%f")
+            tiempo_campo = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
 
             # time.sleep(0.5)
             voltage1 = read(0)
