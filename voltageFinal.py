@@ -86,6 +86,7 @@ if __name__ == "__main__":
             value = 1
             tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
 
+            time.sleep(0.5)
             voltage1 = read(0)
 
             if voltage1 > 3.2:
