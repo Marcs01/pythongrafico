@@ -15,9 +15,7 @@ def eliminar_y_escribir(nombre_archivo, datos, fila_nueva):
     ) as archivo:
         writer = csv.writer(archivo)
         if not datos:
-            writer.writerow(
-                ["bird_duration", "value"]
-            )  # Escribir cabecera si es un archivo nuevo
+            writer.writerow(["bird_duration", "value"])
         else:
             writer.writerows(
                 datos
@@ -77,7 +75,6 @@ if __name__ == "__main__":
         voltage0 = read(0)
         print("{:.9f}".format(voltage0))
         time.sleep(0.5)
-        voltage1 = voltage0
 
         nombre_archivo = "logs/" + datetime.now().strftime("%Y%m%d") + ".csv"
         file_exists = os.path.exists(nombre_archivo)
@@ -86,26 +83,11 @@ if __name__ == "__main__":
             value = 1
             tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
 
-            time.sleep(0.5)
+            # time.sleep(0.5)
             voltage1 = read(0)
-
-            if voltage1 > 3.2:
-
-                value = 2
-                datos_modificados = []
-                if file_exists:
-                    # Leer y almacenar todos los datos
-                    with open(nombre_archivo, "r", newline="") as archivo:
-                        datos_modificados = list(csv.reader(archivo))
-
-                    # Verificar la condición y modificar los datos si es necesario
-                    if datos_modificados and datos_modificados[-1][0] == tiempo_campo:
-                        # La condición para modificar/eliminar la última fila va aquí.
-                        # En este caso, simplemente eliminamos la última fila.
-                        datos_modificados.pop()
-
-                # La nueva fila a añadir
-                fila_nueva = [tiempo_campo, value]
-
-                # Escribir los datos modificados de vuelta al archivo (sin la última fila si se eliminó) y añadir la nueva fila
-                eliminar_y_escribir(nombre_archivo, datos_modificados, fila_nueva)
+            with open(nombre_archivo, mode="a") as archivo:
+                writer = csv.writer(archivo)
+                if not file_exists:
+                    writer.writerow(["bird_duration", "value"])
+                data = [tiempo_campo, value]
+                writer.writerow(data)
