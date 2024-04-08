@@ -77,32 +77,34 @@ if __name__ == "__main__":
         voltage0 = read(0)
         print("{:.9f}".format(voltage0))
         time.sleep(0.5)
+        voltage1 = voltage0
 
-        tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
         nombre_archivo = "logs/" + datetime.now().strftime("%Y%m%d") + ".csv"
         file_exists = os.path.exists(nombre_archivo)
-        value = 1
 
         if voltage0 > 3.2:
-            value = 2
+            value = 1
+            tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
 
-        datos_modificados = []
-        if file_exists:
-            # Leer y almacenar todos los datos
-            with open(nombre_archivo, "r", newline="") as archivo:
-                datos_modificados = list(csv.reader(archivo))
+            voltage1 = read(0)
 
-            # Verificar la condición y modificar los datos si es necesario
-            if datos_modificados and datos_modificados[-1][0] == tiempo_campo:
-                # La condición para modificar/eliminar la última fila va aquí.
-                # En este caso, simplemente eliminamos la última fila.
-                datos_modificados.pop()
+            if voltage1 > 3.2:
 
-        # La nueva fila a añadir
-        fila_nueva = [tiempo_campo, value]
+                value = 2
+                datos_modificados = []
+                if file_exists:
+                    # Leer y almacenar todos los datos
+                    with open(nombre_archivo, "r", newline="") as archivo:
+                        datos_modificados = list(csv.reader(archivo))
 
-        # Escribir los datos modificados de vuelta al archivo (sin la última fila si se eliminó) y añadir la nueva fila
-        eliminar_y_escribir(nombre_archivo, datos_modificados, fila_nueva)
+                    # Verificar la condición y modificar los datos si es necesario
+                    if datos_modificados and datos_modificados[-1][0] == tiempo_campo:
+                        # La condición para modificar/eliminar la última fila va aquí.
+                        # En este caso, simplemente eliminamos la última fila.
+                        datos_modificados.pop()
 
-        # Espera antes de la siguiente medición
-        time.sleep(1)
+                # La nueva fila a añadir
+                fila_nueva = [tiempo_campo, value]
+
+                # Escribir los datos modificados de vuelta al archivo (sin la última fila si se eliminó) y añadir la nueva fila
+                eliminar_y_escribir(nombre_archivo, datos_modificados, fila_nueva)
