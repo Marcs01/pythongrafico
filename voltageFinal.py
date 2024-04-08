@@ -62,36 +62,29 @@ if __name__ == "__main__":
         print("{:.9f}".format(voltage0))
         time.sleep(0.5)
 
+        tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
+        nombre_archivo = "logs/" + datetime.now().strftime("%Y%m%d") + ".csv"
+        file_exists = os.path.exists(nombre_archivo)
+        value = 1
+
         if voltage0 > 3.2:
-            ultima_fila = None  # este el campo de la ultima fila
+            value = 2  # Suponiendo que quieres cambiar a 2 directamente si el voltaje supera 3.2
 
-            tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
-            tiempo_campo2 = tiempo_campo
-            nombre_archivo = "logs/" + datetime.now().strftime("%Y%m%d") + ".csv"
-            file_exists = os.path.exists(nombre_archivo)
-            value = 1
-
-            time.sleep(0.5)
-            tmp = read(0)
-
-            if tmp > 3.2:
-                tiempo_campo2 = datetime.now().strftime("%Y%m%d%H%M%S")
-                value = 2
-
-            print(value)
-
-            with open(nombre_archivo, "r") as archivo:
-                if file_exists:
-
+            # Leer la última fila solo si el archivo existe
+            ultima_fila = None
+            if file_exists:
+                with open(nombre_archivo, "r") as archivo:
                     for ultima_fila in csv.reader(archivo):
-                        # necesito obtener la ultima fila
-                        pass
-                        if ultima_fila:
-                            print(ultima_fila)
+                        pass  # Esto dejará en ultima_fila la última fila leída
+                    if ultima_fila:
+                        print("Última fila:", ultima_fila)
 
-            with open(nombre_archivo, mode="a") as archivo:
+            # Ahora, escribe los datos al archivo
+            with open(nombre_archivo, mode="a", newline="") as archivo:
                 writer = csv.writer(archivo)
                 if not file_exists:
-                    writer.writerow(["bird_duration", "value"])
-                data = [tiempo_campo2, value]
+                    writer.writerow(
+                        ["bird_duration", "value"]
+                    )  # Escribir cabecera si es nuevo archivo
+                data = [tiempo_campo, value]
                 writer.writerow(data)
