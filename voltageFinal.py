@@ -84,14 +84,13 @@ if __name__ == "__main__":
         file_exists = os.path.exists(nombre_archivo)
 
         if voltage0 > 3.19:
-            value = 1
-            tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S.%f")
+            tiempo_campo = datetime.now().strftime("%Y%m%d %H%M%S.%f")
 
             # time.sleep(0.5)
             voltage1 = read(0)
             with open(nombre_archivo, mode="a") as archivo:
                 writer = csv.writer(archivo)
                 if not file_exists:
-                    writer.writerow(["bird_duration", "value"])
-                data = [tiempo_campo, value]
+                    writer.writerow([])
+                data = [tiempo_campo]
                 writer.writerow(data)
