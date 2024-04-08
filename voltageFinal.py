@@ -74,17 +74,16 @@ if __name__ == "__main__":
             ultima_fila = None
             if file_exists:
                 with open(nombre_archivo, "r") as archivo:
-                    for ultima_fila in csv.reader(archivo):
-                        pass  # Esto dejará en ultima_fila la última fila leída
-                    if ultima_fila:
-                        if ultima_fila[1] == tiempo_campo:
+                    datos = list(csv.reader(archivo))
+                    if datos:
+                        if datos[-1][0] == tiempo_campo:
                             writer = csv.writer(archivo)
                             if not file_exists:
                                 writer.writerow(
                                     ["bird_duration", "value"]
                                 )  # Escribir cabecera si es nuevo archivo
-                            ultima_fila[-1][0] = [tiempo_campo, 2]
-                            writer.writerow(data)
+                            datos.pop()
+                            writer.writerow(datos)
 
             # Ahora, escribe los datos al archivo
             with open(nombre_archivo, mode="a", newline="") as archivo:
