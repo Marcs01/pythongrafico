@@ -69,48 +69,28 @@ if __name__ == "__main__":
         if voltage1 > 3.2:
 
             tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
-
             nombre_archivo = "logs/" + datetime.now().strftime("%d-%b-%Y") + "_data.csv"
-
             file_exists = os.path.exists(nombre_archivo)
 
-            with open(nombre_archivo, mode="ab") as archivo:
-
+            with open(nombre_archivo, mode="a", newline="") as archivo:
                 writer = csv.writer(archivo)
-
                 if not file_exists:
-
                     writer.writerow(["bird_duration", "value"])
-
-            data = [tiempo_campo, 1]
+                data = [tiempo_campo, 1]
+                writer.writerow(data)
+                print("1")
 
             time.sleep(0.5)
             tmp = read(0)
 
-            writer.writerow(data)
-            print("1")
-
             if tmp > 3.2:
                 tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
-
                 nombre_archivo = (
                     "logs/" + datetime.now().strftime("%d-%b-%Y") + "_data.csv"
                 )
 
-                file_exists = os.path.exists(nombre_archivo)
-
-                with open(nombre_archivo, mode="ab") as archivo:
-
+                with open(nombre_archivo, mode="a", newline="") as archivo:
                     writer = csv.writer(archivo)
-
-                    if not file_exists:
-
-                        writer.writerow(["bird_duration", "value"])
-
-                data = [tiempo_campo, 2]
-
-                time.sleep(0.5)
-                tmp = read(0)
-
-                writer.writerow(data)
-                print("2")
+                    data = [tiempo_campo, 2]
+                    writer.writerow(data)
+                    print("2")
