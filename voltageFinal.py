@@ -70,13 +70,13 @@ def write(val):
 
 if __name__ == "__main__":
     setup(0x48)
+    nombre_archivo = "logs/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".csv"
 
     while True:
         voltage0 = read(0)
         print("{:.9f}".format(voltage0))
         time.sleep(0.5)
 
-        nombre_archivo = "logs/" + datetime.now().strftime("%Y%m%d") + ".csv"
         file_exists = os.path.exists(nombre_archivo)
 
         if voltage0 > 3.2:
