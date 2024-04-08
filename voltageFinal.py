@@ -58,23 +58,22 @@ if __name__ == "__main__":
 
     while True:
 
-        tolerancia = 5
-        contador = 0
         voltage0 = read(0)
-        voltage1 = voltage0
-        voltage0 = "{:.9f}".format(voltage0)
-        print(voltage1)
+        print("{:.9f}".format(voltage0))
         time.sleep(0.5)
 
-        if voltage1 > 3.2:
-
+        if voltage0 > 3.2:
             tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
+            tiempo_campo2 = (
+                tiempo_campo  # Inicializa tiempo_campo2 al mismo valor que tiempo_campo
+            )
             nombre_archivo = "logs/" + datetime.now().strftime("%Y%m%d") + ".csv"
             file_exists = os.path.exists(nombre_archivo)
             value = 1
-            tiempo_campo2 = ""
 
-            time.sleep(0.0)
+            time.sleep(
+                0.5
+            )  # Ajustado de 0.0 a 0.5 para mantener consistencia y evitar llamadas demasiado rápidas
             tmp = read(0)
 
             if tmp > 3.2:
@@ -83,11 +82,11 @@ if __name__ == "__main__":
 
             print(value)
 
-            if tiempo_campo != tiempo_campo2:
-
-                with open(nombre_archivo, mode="a") as archivo:
-                    writer = csv.writer(archivo)
-                    if not file_exists:
-                        writer.writerow(["bird_duration", "value"])
-                    data = [tiempo_campo2, value]
-                    writer.writerow(data)
+            # Esta condición siempre se cumple si tiempo_campo2 fue actualizado,
+            # de lo contrario, usa tiempo_campo
+            with open(nombre_archivo, mode="a") as archivo:
+                writer = csv.writer(archivo)
+                if not file_exists:
+                    writer.writerow(["bird_duration", "value"])
+                data = [tiempo_campo2, value]
+                writer.writerow(data)
