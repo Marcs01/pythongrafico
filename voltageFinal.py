@@ -63,8 +63,6 @@ if __name__ == "__main__":
         voltage0 = read(0)
         voltage1 = voltage0
         voltage0 = "{:.9f}".format(voltage0)
-        tiempo_campo = None
-        tiempo_campo2 = None
         print(voltage1)
         time.sleep(0.5)
 
@@ -74,6 +72,7 @@ if __name__ == "__main__":
             nombre_archivo = "logs/" + datetime.now().strftime("%Y%m%d") + ".csv"
             file_exists = os.path.exists(nombre_archivo)
             value = 1
+            tiempo_campo2 = ""
 
             time.sleep(0.0)
             tmp = read(0)
