@@ -68,30 +68,34 @@ if __name__ == "__main__":
 
         if voltage1 > 3.2:
 
+            tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
+
+            nombre_archivo = "logs/" + datetime.now().strftime("%d-%b-%Y") + "_data.csv"
+
+            file_exists = os.path.exists(nombre_archivo)
+
+            with open(nombre_archivo, mode="ab") as archivo:
+
+                writer = csv.writer(archivo)
+
+                if not file_exists:
+
+                    writer.writerow(["bird_duration", "value"])
+
+            data = [tiempo_campo, 1]
+
             time.sleep(0.5)
             tmp = read(0)
 
+            writer.writerow(data)
+
             if tmp > 3.2:
-                # tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
-                print("Es mayor a dos")
-                while tolerancia > 0:
-
-                    voltage1 = read(0)
-                    contador += 1
-
-                    print(voltage1)
-
-                    if voltage1 < 3.2:
-                        tolerancia -= 1
-                    elif voltage1 >= 3.2:
-                        tolerancia = 5
-                    print(tolerancia)
-
-                    time.sleep(1)
+                tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
 
                 nombre_archivo = (
                     "logs/" + datetime.now().strftime("%d-%b-%Y") + "_data.csv"
                 )
+
                 file_exists = os.path.exists(nombre_archivo)
 
                 with open(nombre_archivo, mode="ab") as archivo:
@@ -100,14 +104,11 @@ if __name__ == "__main__":
 
                     if not file_exists:
 
-                        writer.writerow(
-                            [
-                                "bird_duration",
-                                #   "hora"
-                            ]
-                        )
+                        writer.writerow(["bird_duration", "value"])
 
-                    data = [
-                        contador - 4,  # tiempo_campo
-                    ]
-                    writer.writerow(data)
+                data = [tiempo_campo, 2]
+
+                time.sleep(0.5)
+                tmp = read(0)
+
+                writer.writerow(data)
