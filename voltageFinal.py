@@ -15,7 +15,11 @@ def eliminar_y_escribir(nombre_archivo, datos, fila_nueva):
     ) as archivo:
         writer = csv.writer(archivo)
         if not datos:
-            writer.writerow(["bird_duration", "value"])
+            writer.writerow(
+                [
+                    "",
+                ]
+            )
         else:
             writer.writerows(
                 datos
@@ -81,7 +85,7 @@ if __name__ == "__main__":
 
         if voltage0 > 3.2:
             value = 1
-            tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S")
+            tiempo_campo = datetime.now().strftime("%Y%m%d%H%M%S.%f")
 
             # time.sleep(0.5)
             voltage1 = read(0)
