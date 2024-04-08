@@ -63,6 +63,8 @@ if __name__ == "__main__":
         voltage0 = read(0)
         voltage1 = voltage0
         voltage0 = "{:.9f}".format(voltage0)
+        tiempo_campo = None
+        tiempo_campo2 = None
         print(voltage1)
         time.sleep(0.5)
 
@@ -88,5 +90,5 @@ if __name__ == "__main__":
                     writer = csv.writer(archivo)
                     if not file_exists:
                         writer.writerow(["bird_duration", "value"])
-                    data = [tiempo_campo, value]
+                    data = [tiempo_campo2, value]
                     writer.writerow(data)
