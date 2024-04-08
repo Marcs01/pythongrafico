@@ -71,7 +71,16 @@ if __name__ == "__main__":
             tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
             nombre_archivo = "logs/" + datetime.now().strftime("%d-%b-%Y") + "_data.csv"
             file_exists = os.path.exists(nombre_archivo)
+            value = 1
 
+            time.sleep(0.5)
+            tmp = read(0)
+
+            if tmp > 3.2:
+                tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
+                value = 2
+
+            print(value)
             with open(nombre_archivo, mode="a") as archivo:
                 writer = csv.writer(archivo)
                 if not file_exists:
@@ -79,18 +88,3 @@ if __name__ == "__main__":
                 data = [tiempo_campo, 1]
                 writer.writerow(data)
                 print("1")
-
-            time.sleep(0.5)
-            tmp = read(0)
-
-            if tmp > 3.2:
-                tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
-                nombre_archivo = (
-                    "logs/" + datetime.now().strftime("%d-%b-%Y") + "_data.csv"
-                )
-
-                with open(nombre_archivo, mode="a") as archivo:
-                    writer = csv.writer(archivo)
-                    data = [tiempo_campo, 2]
-                    writer.writerow(data)
-                    print("2")
