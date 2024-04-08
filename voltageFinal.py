@@ -81,6 +81,7 @@ if __name__ == "__main__":
                 value = 2
 
             print(value)
+
             with open(nombre_archivo, mode="a") as archivo:
                 writer = csv.writer(archivo)
                 if not file_exists:
