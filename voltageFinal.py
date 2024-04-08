@@ -88,6 +88,7 @@ if __name__ == "__main__":
             tmp = read(0)
 
             writer.writerow(data)
+            print("1")
 
             if tmp > 3.2:
                 tiempo_campo = datetime.now().strftime("%d-%b-%Y %H:%M:%S")
@@ -112,3 +113,4 @@ if __name__ == "__main__":
                 tmp = read(0)
 
                 writer.writerow(data)
+                print("2")
